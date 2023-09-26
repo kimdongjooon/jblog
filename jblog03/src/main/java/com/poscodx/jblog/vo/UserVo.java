@@ -1,10 +1,30 @@
 package com.poscodx.jblog.vo;
 
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
 public class UserVo {
+	
+	@NotEmpty
 	private String id;
+	
+	@NotEmpty
+	@Length(min=2, max=10)
 	private String name;
+	
+	@NotEmpty
+	@Length(min=4, max=16)
 	private String password;
 	private String reg_date;
+	private String role;
+	
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
 	public String getId() {
 		return id;
 	}
@@ -31,7 +51,8 @@ public class UserVo {
 	}
 	@Override
 	public String toString() {
-		return "UserVo [id=" + id + ", name=" + name + ", password=" + password + ", reg_date=" + reg_date + "]";
+		return "UserVo [id=" + id + ", name=" + name + ", password=" + password + ", reg_date=" + reg_date + ", role="
+				+ role + "]";
 	}
 	
 	

@@ -31,16 +31,17 @@
 	<mvc:default-servlet-handler/>
 	
 	<!-- Interceptors -->
-<!-- 	<mvc:interceptors>
+ 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/user/auth"/>
-			<bean class = "com.poscodx.mysite.security.LoginInterceptor"></bean>
+			<bean class = "com.poscodx.jblog.security.LoginInterceptor"></bean>
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/user/logout"/>
-			<bean class = "com.poscodx.mysite.security.LogoutInterceptor"></bean>
+			<mvc:mapping path="/blog/logout"/>
+			<bean class = "com.poscodx.jblog.security.LogoutInterceptor"></bean>
 		</mvc:interceptor>
-		<mvc:interceptor>
+<!-- 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
 			<mvc:exclude-mapping path="/assets/**"/> 정적 자원 제외.
 			<mvc:exclude-mapping path="/user/auth"/>
@@ -51,8 +52,8 @@
 			<mvc:mapping path="/**"/>
 			<mvc:exclude-mapping path="/assets/**"/> 정적 자원 제외.
 			<bean class = "com.poscodx.mysite.interceptor.SiteInterceptor"></bean>
-		</mvc:interceptor>
-	</mvc:interceptors> -->
+		</mvc:interceptor> -->
+	</mvc:interceptors>
 	
 	<!-- viewResolver 설정  -->
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">

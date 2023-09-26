@@ -29,10 +29,11 @@ public class BlogController {
 		return "blog/main";
 	}
 	
-	@ResponseBody
-	@RequestMapping("/admin/basic")
+	
+	//블로그 기본 관리 페이지.
+	@RequestMapping("{id}/admin/basic")
 	public String adminBasic() {
-		return "BlogController.adminBasic()";
+		return "blog/admin-basic";
 	}
 	
 }
