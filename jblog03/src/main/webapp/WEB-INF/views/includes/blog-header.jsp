@@ -10,7 +10,7 @@
 			<li><a href="${pageContext.request.contextPath}/user/join">회원가입</a></li>
 		</c:when>
 		<c:otherwise>
-			<li><a href="">블로그 관리</a></li>
+			<li><a href="${pageContext.request.contextPath}/${authUser.id}/admin/basic">블로그 관리</a></li>
 			<li><a href="${pageContext.request.contextPath}/blog/logout">로그아웃</a></li>
 		</c:otherwise>
 	</c:choose>

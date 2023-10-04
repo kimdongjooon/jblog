@@ -3,9 +3,9 @@ package com.poscodx.jblog.controller;
 import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/{id:^(?!assets$|user$|blog$).*}") 
@@ -31,9 +31,24 @@ public class BlogController {
 	
 	
 	//블로그 기본 관리 페이지.
-	@RequestMapping("{id}/admin/basic")
-	public String adminBasic() {
+	@RequestMapping("/admin/basic")
+	public String adminBasic(Model model) {
+		model.addAttribute("menu_option","basic");
 		return "blog/admin-basic";
+	}
+	
+	//블로그 기본 관리 페이지.
+	@RequestMapping("/admin/category")
+	public String adminCategory(Model model) {
+		model.addAttribute("menu_option","category");
+		return "blog/admin-category";
+	}
+	
+	//블로그 기본 관리 페이지.
+	@RequestMapping("/admin/write")
+	public String adminWrite(Model model) {
+		model.addAttribute("menu_option","write");
+		return "blog/admin-write";
 	}
 	
 }
