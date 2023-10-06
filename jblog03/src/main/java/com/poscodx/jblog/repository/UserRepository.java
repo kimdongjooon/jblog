@@ -16,9 +16,12 @@ public class UserRepository {
 	
 	// 사용자 회원가입.
 	public boolean insert(UserVo userVo) {
-		int count = sqlSession.insert("jblogUser.insert",userVo);
-		return count ==1;
+		int count1 = sqlSession.insert("jblogUser.insert",userVo);
+//		int count2 = sqlSession.insert("jblogUser.insert",userVo);
+		return count1 ==1;
 	}
+	// 사용자마다 blog지급 
+	
 	
 	// 사용자 ID중복 확인.
 	public String checkDuplicateById(String id) {

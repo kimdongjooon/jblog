@@ -24,7 +24,7 @@
 	 </mvc:annotation-driven>
 	
 	<!-- url resource mapping -->
-	<!-- <mvc:resources mapping="/assets/upload-images/**" location="file:/Users/kdj/mysite-uploads/" /> -->
+	<mvc:resources mapping="/assets/upload-images/**" location="file:/Users/kdj/jblog-uploads/" />
 	
 
 	<!-- Default Servlet Handler -->
@@ -47,12 +47,12 @@
 			<mvc:exclude-mapping path="/user/auth"/>
 			<mvc:exclude-mapping path="/user/logout"/>
 			<bean class = "com.poscodx.mysite.security.AuthInterceptor"></bean>
-		</mvc:interceptor>
+		</mvc:interceptor> -->
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
-			<mvc:exclude-mapping path="/assets/**"/> 정적 자원 제외.
-			<bean class = "com.poscodx.mysite.interceptor.SiteInterceptor"></bean>
-		</mvc:interceptor> -->
+			<mvc:exclude-mapping path="/assets/**"/> <!-- 정적 자원 제외. -->
+			<bean class = "com.poscodx.jblog.interceptor.BlogInterceptor"></bean>
+		</mvc:interceptor> 
 	</mvc:interceptors>
 	
 	<!-- viewResolver 설정  -->
@@ -81,19 +81,19 @@
 	
 
 	<!-- Multipart resolver 설정 -->
-<!-- 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-	    최대업로드 가능한 바이트크기
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	    <!-- 최대업로드 가능한 바이트크기 -->
 	   	<property name="maxUploadSize" value="52428800" />
 	    
-	    디스크에 임시 파일을 생성하기 전에 메모리에 보관할수있는 최대 바이트 크기
+	    <!-- 디스크에 임시 파일을 생성하기 전에 메모리에 보관할수있는 최대 바이트 크기 -->
     	<property name="maxInMemorySize" value="52428800" />
 	
-	    defaultEncoding
+	    <!-- defaultEncoding -->
 	    <property name="defaultEncoding" value="utf-8" />
-	</bean> -->
+	</bean>
 	
 	<!-- ApplicationContextEventListener -->
-	<!-- <bean class="com.poscodx.mysite.event.ApplicationContextEventListener" /> -->
+	<!-- <bean class="com.poscodx.jblog.event.ApplicationContextEventListener" /> -->
 	
 
 	<context:annotation-config />

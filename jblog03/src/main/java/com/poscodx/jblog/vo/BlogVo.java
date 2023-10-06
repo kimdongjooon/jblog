@@ -1,5 +1,6 @@
 package com.poscodx.jblog.vo;
 
+
 public class BlogVo {
 	private String blog_id;
 	private String title;
