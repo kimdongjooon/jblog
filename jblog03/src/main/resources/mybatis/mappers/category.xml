@@ -8,7 +8,30 @@
 		]]>
 	</select>
 	
-	<insert id="insert" parameterType="categoryvo">
+	<select id="getCategoryNo" parameterType="String" resultType="Long">
+		<![CDATA[
+			SELECT no FROM category where name = #{category};
+		]]>
+	</select>
+	
+	<select id="findCountByBlog_id" parameterType="blogvo" resultType="categoryvo">
+		<![CDATA[
+			SELECT 
+				count(*) as count,
+			    c.no,
+			    c.name,
+			    c.description,
+			    c.blog_id,
+			    p.no as p_no
+			FROM category c left join post p on 
+			c.no = p.category_no
+			AND c.blog_id = 'admin'
+			group by c.no;
+		]]>
+	</select>
+	
+	
+	<insert id="addCategory" parameterType="categoryvo">
 		<choose>
 			<when test=' name == "" '>
 				<![CDATA[
@@ -26,9 +49,9 @@
 		
 	</insert>
 	
-	<delete id="deleteByBlog_id" parameterType="categoryvo" >
+	<delete id="deleteByCategory_id" parameterType="Long" >
 		<![CDATA[
-			SELECT id FROM user where no = #{no};s
+			delete from category where no = #{category_id};
 		]]> 
 	</delete>
 	

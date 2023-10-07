@@ -48,26 +48,26 @@ public class AuthInterceptor implements HandlerInterceptor {
 		}
 		
 		//6. 권한(Authoriazion) 체크를 위해서 @Auth의 Role 가져오기("USER", "ADMIN")
-		String role = auth.Role();
-		System.out.println("role :"+auth.Role());
-		String authUserRole = authUser.getRole();
-		System.out.println("authUserRole :"+authUserRole);
+//		String role = auth.Role();
+//		System.out.println("role :"+auth.Role());
+//		String authUserRole = authUser.getRole();
+//		System.out.println("authUserRole :"+authUserRole);
 		
 		//7. @Auth의 role이 "UESR"인 경우. authUser의 role은 상관없음.
-		if(role.equals(authUserRole)) {
-			return true;
-		}
+//		if(role.equals(authUserRole)) {
+//			return true;
+//		}
 		
 //		if("ADMIN".equals(authUserRole)){
 //			System.out.println("관리자 모드 ");
 //			return true;
 //		}
 		
-		if(!"ADMIN".equals(authUserRole)){
-			System.out.println("관리자가 아님.");
-			response.sendRedirect(request.getContextPath());
-			return false;
-		}
+//		if(!"ADMIN".equals(authUserRole)){
+//			System.out.println("관리자가 아님.");
+//			response.sendRedirect(request.getContextPath());
+//			return false;
+//		}
 		
 		
 		//6. 인증 확인. 

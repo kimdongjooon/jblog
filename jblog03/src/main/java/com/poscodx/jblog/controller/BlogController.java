@@ -1,7 +1,6 @@
 package com.poscodx.jblog.controller;
 
 import java.util.List;
-import java.util.Locale.Category;
 import java.util.Optional;
 
 import javax.servlet.ServletContext;
@@ -16,16 +15,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.poscodx.jblog.security.Auth;
 import com.poscodx.jblog.security.BlogUpdate;
 import com.poscodx.jblog.service.BlogService;
 import com.poscodx.jblog.service.CategoryService;
 import com.poscodx.jblog.service.FileUploadService;
+import com.poscodx.jblog.service.PostService;
 import com.poscodx.jblog.vo.BlogVo;
 import com.poscodx.jblog.vo.CategoryVo;
+import com.poscodx.jblog.vo.PostVo;
 import com.poscodx.jblog.vo.UserVo;
 
 @Controller
-@RequestMapping("/{blog_id:^(?!assets$|user$|blog$).*}") 
+@RequestMapping("/{blog_id:^(?!assets$|blog$).*}") 
 // 단 asset도 사용했을때도 들어와서 PathVariable옵션에서 제외시킬수있는 정규 표현식 찾기.
 public class BlogController {
 	// 스프링 컨테이너 
@@ -40,6 +42,9 @@ public class BlogController {
 	
 	@Autowired
 	private CategoryService categoryService;
+	
+	@Autowired
+	private PostService postService;
 	
 	@Autowired
 	private FileUploadService fileUploadService;
@@ -82,17 +87,26 @@ public class BlogController {
 		model.addAttribute("categoryList",categoryList);
 		
 		// 3. postvo 데이터 추가.
+		
+		List<PostVo> postList = postService.getPost(blogId,categoryNo);
+		for(PostVo vo: postList) {
+			System.out.println("포스트 리스트: "+vo);
+		}
+		model.addAttribute("postList",postList);
+		
 		return "blog/main";
 	}
 	
 	
 	//블로그 기본 관리 페이지.
+	@Auth
 	@RequestMapping("/admin/basic")
 	public String adminBasic(Model model) {
 		model.addAttribute("menu_option","basic");
 		return "blog/admin-basic";
 	}
 	
+	@Auth
 	@BlogUpdate
 	@RequestMapping(value = "/admin/basic/update", method=RequestMethod.POST)
 	public String main(
@@ -104,8 +118,7 @@ public class BlogController {
 		// 이미지 url 셋팅
 		String url = fileUploadService.restore(file);
 		blogvo.setImage(url);
-		
-
+	
 		blogService.updateBlog(blogvo);
 		
 //		BlogVo blog = applicationContext.getBean(BlogVo.class);
@@ -121,19 +134,84 @@ public class BlogController {
 	
 	
 	//블로그 기본 관리 페이지.
+	@Auth
 	@RequestMapping("/admin/category")
-	public String adminCategory(Model model) {
+	public String adminCategory(
+			@PathVariable("blog_id") String blogId,
+			Model model) {
 		model.addAttribute("menu_option","category");
+		
+		BlogVo blogvo = new BlogVo();
+		blogvo.setBlog_id(blogId);
+		List<CategoryVo> categoryList = categoryService.getCategoryAndCount(blogvo);
+		for(CategoryVo vo: categoryList) {
+			System.out.println("카테고리count 리스트: "+vo);
+		}
+		model.addAttribute("categoryList",categoryList);
+		
 		return "blog/admin-category";
 	}
 	
-	// 카테고리 추가 및 삭제
+	// 카테고리 추가
+	@Auth
+	@RequestMapping("/admin/category/add")
+	public String adminCategoryAdd(
+			@PathVariable("blog_id") String blog_id,
+			CategoryVo categorVo) {
+		System.out.println("카테고리추가하는 categorVo:"+categorVo);
+		categoryService.addCategory(categorVo);
+		
+		return "redirect:/"+blog_id+"/admin/category";
+	}
+	
+	
+	// 카테고리 삭제
+	@Auth
+	@RequestMapping("/admin/category/delete/{category_id}")
+	public String adminCategoryDelete(
+			@PathVariable("blog_id") String blog_id,
+			@PathVariable("category_id") Long category_id
+			) {
+		categoryService.deleteCategory(category_id);
+		return "redirect:/"+blog_id+"/admin/category";
+	}
+	
+	
+	
 	
 	//블로그 기본 관리 페이지.
-	@RequestMapping("/admin/write")
-	public String adminWrite(Model model) {
+	@Auth
+	@RequestMapping(value="/admin/write", method=RequestMethod.GET)
+	public String adminWrite(
+			@PathVariable("blog_id") String blogId,
+			Model model) {
 		model.addAttribute("menu_option","write");
+		
+		BlogVo blogvo = new BlogVo();
+		blogvo.setBlog_id(blogId);
+		List<CategoryVo> categoryList = categoryService.getCategory(blogvo);
+		for(CategoryVo vo: categoryList) {
+			System.out.println("카테고리 리스트: "+vo);
+		}
+		model.addAttribute("categoryList",categoryList);
+		
 		return "blog/admin-write";
 	}
+	
+	// 포스트 글작성
+	@Auth
+	@RequestMapping(value="/admin/write", method=RequestMethod.POST)
+	public String adminWrite(
+			@PathVariable("blog_id") String blog_id,
+			PostVo postvo) {
+		
+		Long Category_no = categoryService.getCategoryNo(postvo.getCategory());
+		
+		
+		postvo.setCategory_no(Category_no);
+		postService.addPost(postvo);
+		return "redirect:/"+blog_id+"/admin/category";
+	}
+	
 	
 }

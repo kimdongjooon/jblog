@@ -24,11 +24,9 @@
 					<p>
 				</div>
 				<ul class="blog-list">
-					<li><a href="">Spring Camp 2016 참여기</a> <span>2015/05/02</span>	</li>
-					<li><a href="">Spring Boot 사용법 정리</a> <span>2015/05/02</span>	</li>
-					<li><a href="">Spring Security 설정법</a> <span>2015/05/02</span>	</li>
-					<li><a href="">JPA + Hinernate</a> <span>2015/05/02</span>	</li>
-					<li><a href="">AOP 활용하기 - DAO 실행시간 측정하기</a> <span>2015/05/02</span>	</li>
+					<c:forEach items="${postList }" var="vo" varStatus="status" >
+						<li><a href="${pageContext.request.contextPath}/${vo.blog_id}/${vo.category_no}/${vo.no}">${vo.title} </a> <span>2015/05/02</span>	</li>	
+					</c:forEach>			
 				</ul>
 			</div>
 		</div>
@@ -43,7 +41,7 @@
 			<h2>카테고리</h2>
 			<ul>
 				<c:forEach items="${categoryList }" var="vo" varStatus="status" >
-					<li><a href="${pageContext.request.contextPath}/">${vo.name}</a></li>
+					<li><a href="${pageContext.request.contextPath}/${vo.blog_id}/${vo.no}">${vo.name}</a></li>
 				</c:forEach>
 			</ul>
 			
