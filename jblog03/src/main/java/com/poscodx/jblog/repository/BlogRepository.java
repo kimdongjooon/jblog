@@ -23,4 +23,8 @@ public class BlogRepository {
 		int count = sqlSession.update("blog.update",vo);
 		return count == 1;
 	}
+
+	public String findByBlog_id(UserVo uservo) {
+		return sqlSession.selectOne("blog.findByBlog_id",uservo);
+	}
 }

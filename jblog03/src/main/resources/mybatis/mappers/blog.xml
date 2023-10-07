@@ -3,21 +3,9 @@
 
 <mapper namespace="blog" >
 	<select id="find" parameterType="uservo" resultType="blogvo">
-		<choose>
-			<when test=' id == "" '>
-				<![CDATA[
-				SELECT blog_id,title,image FROM blog where blog_id = 'admin';
-				]]>
-			</when>
-			<otherwise>
-				<![CDATA[
-				SELECT * FROM blog where blog_id = #{id};
-				]]>
-			</otherwise>
-		</choose>
-		<!-- <![CDATA[
-				SELECT blog_id,title,image FROM blog where blog_id = 'admin';
-		]]> -->
+		<![CDATA[
+		SELECT * FROM blog where blog_id = #{id};
+		]]>
 	</select>
 	
 	<update id="update" parameterType="blogvo">
@@ -41,6 +29,10 @@
 		
 	</update>
 	
-	
+	<select id="findByBlog_id" parameterType="uservo" resultType="String">
+		<![CDATA[
+			SELECT id FROM user where id = #{id};
+		]]> 
+	</select>
 	
 </mapper>

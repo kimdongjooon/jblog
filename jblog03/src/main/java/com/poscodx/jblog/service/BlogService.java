@@ -23,4 +23,10 @@ public class BlogService {
 		
 	}
 
+
+	public String checkBlogId(UserVo uservo) {
+		return blogRepository.findByBlog_id(uservo);
+		
+	}
+
 }
