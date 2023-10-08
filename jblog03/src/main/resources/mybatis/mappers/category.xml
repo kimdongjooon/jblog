@@ -25,7 +25,7 @@
 			    p.no as p_no
 			FROM category c left join post p on 
 			c.no = p.category_no
-			AND c.blog_id = 'admin'
+			WHERE c.blog_id = #{blog_id}
 			group by c.no;
 		]]>
 	</select>

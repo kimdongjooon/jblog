@@ -23,5 +23,10 @@ public class PostService {
 		
 	}
 
+	public void deletePostAll(Long category_id) {
+		postRepository.deletePostAllByCategory_id(category_id);
+		
+	}
+
 	
 }

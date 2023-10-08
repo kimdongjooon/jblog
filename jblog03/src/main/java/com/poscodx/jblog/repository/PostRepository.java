@@ -30,6 +30,10 @@ public class PostRepository {
 		sqlSession.insert("post.addPostByPostVo",postVo);
 		
 	}
+	public void deletePostAllByCategory_id(Long category_id) {
+		sqlSession.delete("post.deletePostAllByCategory_id",category_id);
+		
+	}
 	
 
 }

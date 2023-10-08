@@ -172,6 +172,7 @@ public class BlogController {
 			@PathVariable("blog_id") String blog_id,
 			@PathVariable("category_id") Long category_id
 			) {
+		postService.deletePostAll(category_id);
 		categoryService.deleteCategory(category_id);
 		return "redirect:/"+blog_id+"/admin/category";
 	}

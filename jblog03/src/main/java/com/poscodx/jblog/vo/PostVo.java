@@ -7,7 +7,15 @@ public class PostVo {
 	private Long category_no;
 	private String category;
 	private String blog_id;
+	private String post_date;
 	
+	
+	public String getPost_date() {
+		return post_date;
+	}
+	public void setPost_date(String post_date) {
+		this.post_date = post_date;
+	}
 	public String getCategory() {
 		return category;
 	}
@@ -47,7 +55,7 @@ public class PostVo {
 	@Override
 	public String toString() {
 		return "PostVo [no=" + no + ", title=" + title + ", contents=" + contents + ", category_no=" + category_no
-				+ ", category=" + category + ", blog_id=" + blog_id + "]";
+				+ ", category=" + category + ", blog_id=" + blog_id + ", post_date=" + post_date + "]";
 	}
 	
 	

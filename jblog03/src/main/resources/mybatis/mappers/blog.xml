@@ -35,4 +35,10 @@
 		]]> 
 	</select>
 	
+	<insert id="addBlogByBlog_id" parameterType="uservo">
+		<![CDATA[
+			insert into blog values ('Spring 이야기','/assets/images/spring-logo.jpg',#{id});
+		]]> 
+	</insert>
+	
 </mapper>

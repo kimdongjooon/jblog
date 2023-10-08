@@ -1,5 +1,7 @@
 package com.poscodx.jblog.service;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,12 @@ public class BlogService {
 
 	public String checkBlogId(UserVo uservo) {
 		return blogRepository.findByBlog_id(uservo);
+		
+	}
+
+
+	public void addblog(UserVo userVo) {
+		blogRepository.addBlogByBlog_id(userVo);
 		
 	}
 
