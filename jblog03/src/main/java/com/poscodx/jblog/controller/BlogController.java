@@ -27,7 +27,7 @@ import com.poscodx.jblog.vo.PostVo;
 import com.poscodx.jblog.vo.UserVo;
 
 @Controller
-@RequestMapping("/{blog_id:^(?!assets$|blog$).*}") 
+@RequestMapping("/{blog_id:^(?!assets$|key$).*}") 
 // 단 asset도 사용했을때도 들어와서 PathVariable옵션에서 제외시킬수있는 정규 표현식 찾기.
 public class BlogController {
 	// 스프링 컨테이너 
@@ -96,7 +96,6 @@ public class BlogController {
 		
 		return "blog/main";
 	}
-	
 	
 	//블로그 기본 관리 페이지.
 	@Auth
