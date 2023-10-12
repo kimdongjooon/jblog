@@ -6,21 +6,26 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Calendar;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.poscodx.jblog.exception.FileUploadServiceException;
 
 @Service
+@PropertySource("classpath:com/poscodx/jblog/config/web/fileupload.properties")
 public class FileUploadService {
-	private static String SAVE_PATH = "/users/kdj/jblog-uploads";
-	private static String URL_PATH = "/assets/upload-images";
+	
+	@Autowired
+	private Environment env;
 	
 	public String restore(MultipartFile file) {
 		String url = null;
 		
 		try {
-			File uploadDirectory = new File(SAVE_PATH);
+			File uploadDirectory = new File(env.getProperty("fileupload.uploadLocation"));
 			// 존재하지 않으면 디렉토리 생성.
 			if(!uploadDirectory.exists()) {
 				uploadDirectory.mkdirs();
@@ -41,12 +46,12 @@ public class FileUploadService {
 			
 			byte[] data = file.getBytes();
 			// 텍스트 이미지 등 모름. 그래서 바이너리 처리위함. 
-			OutputStream os = new FileOutputStream(SAVE_PATH+"/"+saveFilename);
+			OutputStream os = new FileOutputStream(env.getProperty("fileupload.uploadLocation")+"/"+saveFilename);
 			os.write(data);
 			os.close();
 			
 			// resource mapping : url로 들어오는 것을 file system으로 찾아라 
-			url = URL_PATH + "/"+ saveFilename;
+			url = env.getProperty("fileupload.resourceUrl") + "/"+ saveFilename;
 			
 		} catch (IOException ex) {
 			throw new FileUploadServiceException(ex.toString());
