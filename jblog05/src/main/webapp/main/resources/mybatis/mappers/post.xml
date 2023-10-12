@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="post" >
+	<select id="findByBlogIdAndCategoryNo" parameterType="map" resultType="postvo">
+		<choose>
+			<when test=' category_no == "" '>
+				<![CDATA[
+					SELECT 
+						p.no,
+					    p.title,
+					    p.contents,
+					    p.category_no,
+					    c.blog_id,
+					    date_format(p.post_date, '%Y/%m/%d') as post_date	
+					FROM category c, post p
+					where c.no = p.category_no
+					AND c.blog_id = #{blog_id};
+				]]>
+			</when>
+			<otherwise>
+				<![CDATA[
+					SELECT 
+						p.no,
+					    p.title,
+					    p.contents,
+					    p.category_no,
+					    c.blog_id,
+					    date_format(p.post_date, '%Y/%m/%d') as post_date
+					FROM category c, post p
+					where c.no = p.category_no
+					AND c.blog_id = #{blog_id}
+					AND category_no = #{category_no};
+				]]>
+			</otherwise>
+		</choose>	
+	</select>
+	
+	<insert id="addPostByPostVo" parameterType="postvo">
+		<![CDATA[
+			insert into post values (null,#{title},#{contents},#{category_no},now());
+		]]>
+	</insert>
+	
+	<delete id="deletePostAllByCategory_id" parameterType="Long" >
+		<![CDATA[
+			delete from post where category_no = #{category_id};
+		]]> 
+	</delete>
+	
+</mapper>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jblogUser" >
+	<insert id="insert" parameterType="uservo">
+		<![CDATA[
+		insert 
+		into user 
+		values (#{id},#{name},password(#{password}),now(), 'USER')
+		]]>
+	</insert>
+
+	
+	<select id="findByEmailAndPassword" resultType="uservo" parameterType="map">
+		<![CDATA[
+		select id ,name, password,role
+		from user
+		where id = #{id}
+		and password=password(#{password})
+		]]>
+	</select>
+	
+	<select id="checkDuplicateById" resultType="String" parameterType="String">
+		<![CDATA[
+		select id
+		from user
+		where id = #{id}
+		]]>
+	</select>
+	
+	
+	<!-- 
+	<select id="findByNo" resultType="uservo" parameterType="Long">
+		<![CDATA[
+		select no ,name, email,gender,role
+		from user 
+		where no = #{no}
+		]]>
+	</select>
+	
+	
+	
+	<update id="update" parameterType="uservo">
+		<choose>
+			<when test=' password == "" '>
+				<![CDATA[
+				update user
+				set name = #{name }, gender=#{gender} where no = #{no }
+				]]>
+			</when>
+			<otherwise>
+				<![CDATA[
+				update user 
+				set name = #{name }, gender=#{gender },password=password(#{password }) where no = #{no }
+				]]>
+			</otherwise>
+		</choose>
+	</update>
+	
+	<select id="updateformSetGender" parameterType="uservo">
+		<![CDATA[
+			select gender
+			from user
+			where no = #{no}
+		]]>
+	</select> -->
+		
+	
+	
+</mapper>
