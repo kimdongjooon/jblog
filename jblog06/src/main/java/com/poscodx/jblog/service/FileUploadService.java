@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.poscodx.jblog.exception.FileUploadServiceException;
 
 @Service
-@PropertySource("classpath:web/fileupload.properties")
+@PropertySource("classpath:/web/fileupload.properties")
 public class FileUploadService {
 	
 	@Autowired

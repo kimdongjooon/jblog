@@ -10,6 +10,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>JBlog</title>
 <Link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
+
+<script>
+function onCheckingId(){
+	alert("!!!");
+	var paragraph = document.getElementById("blog-id");
+	var id = paragraph.innerHTML;
+	alert(id);
+
+}
+</script>
 </head>
 <body>
 	<div class="center-content">
@@ -32,7 +42,7 @@
 			
 			<label class="block-label" for="blog-id">아이디</label>
 			<input id="blog-id" name="id" type="text" value="${userVo.id}"> 
-			<input id="btn-checkemail" type="button" value="id 중복체크">
+			<input id="btn-checkemail" onclick="onCheckingId()" type="button" value="id 중복체크">
 			<img id="img-checkemail" style="display: none;" src="${pageContext.request.contextPath}/assets/images/check.png">
 			<p style= "padding:3px 0 5px 0; text-align: left; color: #f00">
 				<c:if test="${not empty checkId}">
