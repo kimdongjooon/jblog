@@ -8,8 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.poscodx.jblog.service.BlogService;
 import com.poscodx.jblog.service.UserService;
@@ -52,6 +54,22 @@ public class UserController {
 		return "user/joinsuccess";
 	}
 	
+	@RequestMapping(value="/join/{id}", method=RequestMethod.GET)
+	@ResponseBody
+	public String joinCheckID(
+			@PathVariable("id") String Id
+			) {
+		String checkID = userService.checkDuplicate(Id);
+		if(checkID == null) {
+			System.out.println("사용가능한 ID입니다.");
+			return "사용가능한 ID입니다.";
+		}
+		else {
+			System.out.println("현재 사용중인 ID입니다.");
+			return "현재 사용중인 ID입니다.";
+		}
+	}
+	
 
 	
 	// 로그인, 로그아웃 Auth인터프리터 사용해서 세션으로 로그인기능 구현하기.
@@ -64,6 +82,7 @@ public class UserController {
 	public String login(UserVo userVo) {
 		return "user/login";
 	}
+	
 	
 	
 	

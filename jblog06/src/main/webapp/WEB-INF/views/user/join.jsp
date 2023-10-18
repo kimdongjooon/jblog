@@ -13,11 +13,33 @@
 
 <script>
 function onCheckingId(){
-	alert("!!!");
-	var paragraph = document.getElementById("blog-id");
-	var id = paragraph.innerHTML;
-	alert(id);
-
+	var id = document.getElementById("blog-id").value;
+	alert(id+' 문자 붙이기.');
+	
+	const Http = new XMLHttpRequest();
+	const url = 'join/'+id;
+	alert(url);
+	
+	Http.open('GET',url);
+	Http.send();
+	
+	Http.onreadystatechange = function () {
+	    if (this.readyState == 4 && this.status == 200) {
+	        const response = JSON.parse(Http.responseText);
+	        console.log(response.message);
+	    } else {
+	        console.log('요청 실패.');
+	    }
+	}
+	/* Http.onreadystatechange = function () {
+		if(this.readyState == 4 && this.status == 200){
+			console.log(Http.responseText);
+		}
+		else{
+			console.log('요청 실패.');
+		}
+	}
+	 */
 }
 </script>
 </head>
