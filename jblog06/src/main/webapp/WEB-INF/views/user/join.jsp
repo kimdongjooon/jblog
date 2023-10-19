@@ -14,21 +14,39 @@
 <script>
 function onCheckingId(){
 	var id = document.getElementById("blog-id").value;
-	alert(id+' 문자 붙이기.');
+	/* alert(id+' 문자 붙이기.'); */
 	
 	const Http = new XMLHttpRequest();
 	const url = 'join/'+id;
-	alert(url);
+	/* alert(url); */
 	
 	Http.open('GET',url);
 	Http.send();
 	
 	Http.onreadystatechange = function () {
+		/* alert('요청 받기시도...'); */
 	    if (this.readyState == 4 && this.status == 200) {
-	        const response = JSON.parse(Http.responseText);
-	        console.log(response.message);
+	    	/* alert('요청 성공.'); */
+	    	
+	    	var result = Http.responseText;
+	    	if("사용가능한 ID입니다." == result){
+	    		/* alert(Http.responseText+"1"); */
+	    		var e= document.getElementById("img-checkemail")
+	    		e.style.display="";
+	    		console.log(e);
+	    		
+	    	}else if("현재 사용중인 ID입니다." == result){
+	    		alert(Http.responseText+"2");
+	    		var e= document.getElementById("img-checkemail")
+	    		e.style.display="none";
+	    		console.log(e);
+	    	}else{
+	    		alert(Http.responseText+"3");
+	    	}
+	    /*     const response = JSON.parse(Http.responseText);
+	        alert(response.message); */
 	    } else {
-	        console.log('요청 실패.');
+	    	/* alert('요청 실패.'); */
 	    }
 	}
 	/* Http.onreadystatechange = function () {
@@ -66,6 +84,7 @@ function onCheckingId(){
 			<input id="blog-id" name="id" type="text" value="${userVo.id}"> 
 			<input id="btn-checkemail" onclick="onCheckingId()" type="button" value="id 중복체크">
 			<img id="img-checkemail" style="display: none;" src="${pageContext.request.contextPath}/assets/images/check.png">
+			<p id="p-checkemail" style= "padding:3px 0 5px 0; text-align: left; color: #f00">
 			<p style= "padding:3px 0 5px 0; text-align: left; color: #f00">
 				<c:if test="${not empty checkId}">
 					현재 사용중인 ID입니다.
