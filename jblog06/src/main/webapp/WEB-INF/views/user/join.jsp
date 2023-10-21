@@ -10,55 +10,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>JBlog</title>
 <Link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
-
+<script src="${pageContext.request.contextPath}/assets/js/join.js"></script>
 <script>
-function onCheckingId(){
-	var id = document.getElementById("blog-id").value;
-	/* alert(id+' 문자 붙이기.'); */
-	
-	const Http = new XMLHttpRequest();
-	const url = 'join/'+id;
-	/* alert(url); */
-	
-	Http.open('GET',url);
-	Http.send();
-	
-	Http.onreadystatechange = function () {
-		/* alert('요청 받기시도...'); */
-	    if (this.readyState == 4 && this.status == 200) {
-	    	/* alert('요청 성공.'); */
-	    	
-	    	var result = Http.responseText;
-	    	if("사용가능한 ID입니다." == result){
-	    		/* alert(Http.responseText+"1"); */
-	    		var e= document.getElementById("img-checkemail")
-	    		e.style.display="";
-	    		console.log(e);
-	    		
-	    	}else if("현재 사용중인 ID입니다." == result){
-	    		alert(Http.responseText+"2");
-	    		var e= document.getElementById("img-checkemail")
-	    		e.style.display="none";
-	    		console.log(e);
-	    	}else{
-	    		alert(Http.responseText+"3");
-	    	}
-	    /*     const response = JSON.parse(Http.responseText);
-	        alert(response.message); */
-	    } else {
-	    	/* alert('요청 실패.'); */
-	    }
-	}
-	/* Http.onreadystatechange = function () {
-		if(this.readyState == 4 && this.status == 200){
-			console.log(Http.responseText);
-		}
-		else{
-			console.log('요청 실패.');
-		}
-	}
-	 */
-}
+
 </script>
 </head>
 <body>
@@ -85,7 +39,6 @@ function onCheckingId(){
 			<input id="btn-checkemail" onclick="onCheckingId()" type="button" value="id 중복체크">
 			<img id="img-checkemail" style="display: none;" src="${pageContext.request.contextPath}/assets/images/check.png">
 			<p id="p-checkemail" style= "padding:3px 0 5px 0; text-align: left; color: #f00">
-			<p style= "padding:3px 0 5px 0; text-align: left; color: #f00">
 				<c:if test="${not empty checkId}">
 					현재 사용중인 ID입니다.
 				</c:if>
