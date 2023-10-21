@@ -39,18 +39,6 @@
 			<input id="btn-checkemail" onclick="onCheckingId()" type="button" value="id 중복체크">
 			<img id="img-checkemail" style="display: none;" src="${pageContext.request.contextPath}/assets/images/check.png">
 			<p id="p-checkemail" style= "padding:3px 0 5px 0; text-align: left; color: #f00">
-				<c:if test="${not empty checkId}">
-					현재 사용중인 ID입니다.
-				</c:if>
-				<c:if test="${assets == 1}">
-					assets계정은 생성할 수 없습니다. 
-				</c:if>
-				
-				<spring:hasBindErrors name="userVo">
-					<c:if test="${errors.hasFieldErrors('id') }">
-						<spring:message code="${errors.getFieldError('id').codes[0] }" />
-					</c:if>
-				</spring:hasBindErrors>
 			</p>
 
 			<label class="block-label" for="password">패스워드</label>

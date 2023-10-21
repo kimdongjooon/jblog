@@ -13,10 +13,11 @@
 	// 데이터 요청 처리 전처리 : 출력메시지 빨강, 중복확인체크 이미지 블럭,
 	p.style.color = "red";
 	img.style.display="none";
+	id = id.trim();
 	
 	// 1. 빈값 체킹,
 	if(id.match(pattern)){
-		p.innerText = '공백을 입력할 수 없습니다.';
+		p.innerText = 'ID 사이 공백을 입력할 수 없습니다.';
 		return 0;
 	}
 	
